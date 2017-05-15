@@ -1,0 +1,37 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lei.bean.User">
+    <resultMap type="com.lei.bean.User" id="user">
+        <id column="id" property="id"/>
+        <result column="name" property="name" />
+    </resultMap>
+    
+    <select id="getAllUser"  resultMap="user">
+          SELECT id,name FROM user
+     </select>
+     
+      <select id="getOneUserId" parameterType="int" resultMap="user">
+          SELECT id,name FROM user where id=#{id}
+     </select>
+     
+      <select id="getOneUserName" parameterType="String" resultMap="user">
+          SELECT id,name FROM user where name=#{name}
+     </select>
+     
+     <insert id="insert" parameterType="com.lei.bean.User">
+          insert into user values(#{id},#{name})
+     </insert>
+     
+     <delete id="deleteId" parameterType="int">
+          delete from user where id=#{id}
+     </delete>
+     
+       
+     <delete id="deleteName" parameterType="String">
+          delete from user where name=#{name}
+     </delete>
+     
+     <update id="update" parameterType="com.lei.bean.User">
+          update user set name=#{name} where id=#{id}
+     </update>
+     
+</mapper>
