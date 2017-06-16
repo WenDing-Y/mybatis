@@ -36,6 +36,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         <constructor-arg index="0" ref="SqlSessionFactory" />
     </bean>
     <!-- 配置操作接口类 -->
-    <bean id="userdaoimpl" class="com.lei.dao.impl.UserDaoImpl">
-    </bean>
+    <bean id="userdaoimpl" class="com.lei.dao.impl.UserDaoImpl"> </bean>
+    <bean id="peopledaoimple" class="com.lei.dao.impl.PeopleDaoImpl"></bean>
+   
 </beans>  
