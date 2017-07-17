@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans      
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
+
+
+      <!-- 自动装配 -->
+     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+      <!-- 创建jdbc -->
+     <bean id="propertyconfigur" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <property name="locations">
+          <list>
+            <value>classpath:jdbc.properties</value>
+          </list>
+       </property>
+     </bean>
+      <!-- 配置数据源 -->
+     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+     </bean>
+    <!-- 配置会话工厂 -->
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="DataSource" />
+        <property name="mapperLocations">
+            <value>classpath*:com/lei/bean/mapper/*Mapper.xml</value>
+        </property>
+    </bean>
+
+    <!-- 配置会话模块 -->
+    <bean id="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">  
+        <constructor-arg index="0" ref="SqlSessionFactory" />
+    </bean>
+    <!-- 配置操作接口类 -->
+    <bean id="userdaoimpl" class="com.lei.dao.impl.UserDaoImpl"> </bean>
+    <bean id="peopledaoimple" class="com.lei.dao.impl.PeopleDaoImpl"></bean>
+   
+</beans>  
